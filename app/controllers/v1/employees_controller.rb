@@ -52,9 +52,5 @@ module V1
         :registration_complete,
       )
     end
-
-    def response_errors(object, status:)
-      render "shared/errors", locals: { object: }, status:
-    end
   end
 end
