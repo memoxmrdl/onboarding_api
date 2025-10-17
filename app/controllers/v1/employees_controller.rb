@@ -11,8 +11,10 @@ module V1
     end
 
     def create
-      @employee = Employee::Base.create(employee_params)
+      contract = V1::Employees::CreateContract.new.call(employee_params.to_h)
+      return response_errors(contract, status: :unprocessable_entity) if contract.failure?
 
+      @employee = Employee::Base.create(contract.to_h)
       success = @employee.persisted?
 
       return response_errors(@employee, status: :unprocessable_entity) unless success
@@ -23,8 +25,10 @@ module V1
     def update
       @employee = Employee::Base.find(params[:id])
 
-      success = @employee.update(employee_params)
+      contract = V1::Employees::UpdateContract.new.call(employee_params.to_h)
+      return response_errors(contract, status: :unprocessable_entity) if contract.failure?
 
+      success = @employee.update(contract.to_h)
       return response_errors(@employee, status: :unprocessable_entity) unless success
 
       render :show, status: :ok
