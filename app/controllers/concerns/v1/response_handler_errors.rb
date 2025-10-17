@@ -32,9 +32,5 @@ module V1
 
       raise exception
     end
-
-    def response_errors(object, status:)
-      render "shared/errors", locals: { object: }, status:
-    end
   end
 end

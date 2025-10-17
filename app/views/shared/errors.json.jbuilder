@@ -1,3 +1,4 @@
-json.errors do
-  json.array! object.errors, :attribute, :message
+json.errors errors do |error|
+  json.attribute error[:attribute]
+  json.message error[:message]
 end
