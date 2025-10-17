@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   scope module: :v1, format: :json do
+    post 'auth/login', to: 'authentication#create'
+
     resources :employees
   end
 end
