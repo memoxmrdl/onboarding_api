@@ -12,7 +12,7 @@ module V1
         when ActiveRecord::RecordInvalid
           handle_record_invalid(exception)
         else
-          handle_internal_server_error(exception)
+          handle_internal_server_error_response(exception)
         end
       end
     end

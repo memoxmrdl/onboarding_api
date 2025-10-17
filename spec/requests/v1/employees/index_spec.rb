@@ -4,7 +4,13 @@ require 'rails_helper'
 
 RSpec.describe "V1::EmployeesController#index", type: :request do
   let(:path) { employees_path }
-  let(:headers) { { "Accept" => "application/json" } }
+  let(:token) { AuthenticationService.generate_token[:token] }
+  let(:headers) do
+    {
+      "Accept" => "application/json",
+      "Authorization" => "Bearer #{token}"
+    }
+  end
 
   before { get path, headers: }
 

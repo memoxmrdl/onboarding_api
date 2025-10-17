@@ -6,7 +6,14 @@ RSpec.describe "V1::EmployeesController#destroy", type: :request do
   let(:employee) { create(:employee) }
   let(:id) { employee.id }
   let(:path) { employee_path(id) }
-  let(:headers) { { "Accept" => "application/json" } }
+  let(:token) { AuthenticationService.generate_token[:token] }
+  let(:headers) do
+    {
+      "Accept" => "application/json",
+      "Authorization" => "Bearer #{token}"
+    }
+  end
+
   let(:action) { delete path, headers: }
 
   context "when the employee exists" do
